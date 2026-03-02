@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Griyo Dhahar Kaca5 - Menu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#f6f8fb,#eef1f6);
+    color:#333;
+}
+
+/* ================= HEADER ================= */
+.header{
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+    text-align:center;
+    padding:55px 20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.header h1{
+    font-size:32px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+.header p{
+    opacity:.85;
+    margin-top:6px;
+}
+
+/* ================= CATEGORY ================= */
+.category,
+.subcategory{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:25px 15px;
+}
+
+.subcategory{display:none;}
+
+.sub-group{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.cat-btn{
+    padding:10px 22px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    background:white;
+    font-weight:600;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    transition:.25s;
+}
+
+.cat-btn.active,
+.cat-btn:hover{
+    background:linear-gradient(135deg,#ff7a18,#ff3d00);
+    color:white;
+}
+
+/* ================= GRID ================= */
+.menu-container{
+    max-width:1200px;
+    margin:auto;
+    padding:10px 20px 70px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:22px;
+    justify-items:center;
+}
+
+/* ================= CARD ================= */
+.menu-card{
+    background:white;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+    transition:.35s;
+    display:flex;
+    flex-direction:column;
+    max-width:300px;
+    width:100%;
+}
+
+.menu-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 22px 45px rgba(0,0,0,.14);
+}
+
+/* ================= IMAGE ================= */
+.menu-img{
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    cursor:pointer;
+    transition:.35s;
+}
+
+.menu-card:hover .menu-img{
+    transform:scale(1.07);
+}
+
+/* ================= CONTENT ================= */
+.menu-content{
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    gap:6px;
+}
+
+.menu-title{
+    font-size:18px;
+    font-weight:600;
+}
+
+.menu-desc{
+    font-size:13px;
+    opacity:.7;
+    line-height:1.4;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+/* ================= FOOTER ================= */
+.menu-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:auto;
+}
+
+.price{
+    font-weight:700;
+    font-size:18px;
+    color:#e74c3c;
+}
+
+/* ================= IMAGE MODAL ================= */
+.img-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.88);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+    padding:20px;
+    overflow:auto;
+}
+
+.img-modal.show{
+    display:flex;
+}
+
+.img-modal img{
+    max-width:92%;
+    max-height:80vh;
+    border-radius:18px;
+    animation:zoomIn .25s ease;
+}
+
+#modalTitle{
+    color:white;
+    margin-top:14px;
+    font-weight:600;
+    text-align:center;
+}
+
+.close-modal{
+    position:absolute;
+    top:18px;
+    right:26px;
+    color:white;
+    font-size:34px;
+    cursor:pointer;
+}
+
+@keyframes zoomIn{
+    from{transform:scale(.85);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:500px){
+    .menu-container{
+        grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+        gap:14px;
+    }
+
+    .menu-title{font-size:16px;}
+    .price{font-size:16px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>🍽️ Griyo Dhahar Kaca5</h1>
+    <p>Daftar Menu</p>
+</div>
+
+<div class="category">
+     <button class="cat-btn" onclick="setMain('makanan', this)">Makanan</button>
+    <button class="cat-btn" onclick="setMain('sayur', this)">Sayur</button>
+    <button class="cat-btn" onclick="setMain('extra', this)">Extra</button>
+	<button class="cat-btn" onclick="setMain('snack', this)">Snack</button>
+    <button class="cat-btn" onclick="setMain('minuman', this)">Minuman</button>
+    
+</div>
+
+<div class="subcategory" id="subMenu">
+   <div id="subMakanan" class="sub-group">
+      <button class="cat-btn" onclick="setSub('ayam', this)">Paket</button>
+    <button class="cat-btn" onclick="setSub('ricenoodles', this)">Rice Noodles</button>
+    <button class="cat-btn" onclick="setSub('poultry', this)">Poultry Meat</button>
+    <button class="cat-btn" onclick="setSub('gammik', this)">Gammik</button>
+    <button class="cat-btn" onclick="setSub('beefbelly', this)">Beef Belly</button>
+    <button class="cat-btn" onclick="setSub('seafood', this)">Fish Seafood</button>
+</div>
+
+
+
+
+    <div id="subMinuman" class="sub-group" style="display:none;">
+       
+        <button class="cat-btn" onclick="setSub('oriental', this)">Oriental</button>
+        <button class="cat-btn" onclick="setSub('origin', this)">Origin</button>
+        <button class="cat-btn" onclick="setSub('float', this)">Float</button>
+        <button class="cat-btn" onclick="setSub('yakult', this)">Yakult</button>
+        <button class="cat-btn" onclick="setSub('squash', this)">Squash</button>
+        <button class="cat-btn" onclick="setSub('juice', this)">Juice</button>
+    </div>
+</div>
+
+<div class="menu-container">
+
+<!-- PAKET -->
+<div class="menu-card makanan ayam">
+    <img class="menu-img"
+         src="images/2.png"
+         onclick="previewImage(this.src,'Pahe Griyo 01')">
+
+    <div class="menu-content">
+        <div class="menu-title">Pahe Griyo 01</div>
+        <div class="menu-desc">- Nasi
+								- Ayam Crispy
+								- Tea Ice</div>
+        <div class="menu-footer">
+            <div class="price">Rp12.000</div>
+                 </div>
+    </div>
+</div>
+
+    <div class="menu-card makanan ayam">
+       <img class="menu-img" src="images/4.jpeg" onclick="previewImage(this.src,'Paket Keluarga')">
+    <div class="menu-content">
+        <div class="menu-title">Paket Keluarga</div>
+        <div class="menu-desc">- Nasi (untuk 4 orang)
+								- Ayam Goreng Utuh 1
+								- Tahu
+								- Tempe
+								- Sambal
+        </div>
+        <div class="menu-footer">
+            <div class="price">Rp90.000</div>
+        </div>
+    </div>
+</div>
+
+    <!-- PRASMANAN -->
+    <div class="menu-card makanan ayam">
+        
+        <img class="menu-img" src="images/3.png" onclick="previewImage(this.src,'Paket Prasmanan')">
+		
+        <div class="menu-content">
+            <div class="menu-title">Paket Prasmanan Silver</div>
+            <div class="menu-desc">- Nasi putih
+									- Ayam Goreng Laos
+									- Telur Balado
+									- Capcay
+									- Sambal
+									- Kerupuk
+									- Buah
+									- Sirup Jeruk / Mangga
+									- Air Mineral
+
+Ketentuan:
+- Minimal order 20 pack
+- DP minimal 30%
+- Reservasi H-1</div>
+            <div class="menu-footer">
+                <div class="price">Rp80.000</div>
+                         </div>
+        </div>
+    </div>
+
+    <div class="menu-card makanan ayam">
+        
+       <img class="menu-img" src="images/3.png" onclick="previewImage(this.src,'Paket Prasmanan')">
+        <div class="menu-content">
+            <div class="menu-title">Paket Prasmanan Gold</div>
+            <div class="menu-desc">- Nasi Putih
+			- Dori Crispy
+			- Udang Crispy
+			- Tahu & Tempe Tepung
+			- Sop Kimlo
+			- Sambal
+			- Kerupuk
+			- Buah
+			- Sirup Jeruk / Mangga
+			- Air Mineral
+
+Ketentuan:
+- Minimal order 20 pack
+- DP minimal 30%
+- Reservasi H-1</div>
+            <div class="menu-footer">
+                <div class="price">Rp90.000</div>
+                </div>
+        </div>
+    </div>
+
+    <div class="menu-card makanan ayam">
+      
+         <img class="menu-img" src="images/3.png" onclick="previewImage(this.src,'Paket Prasmanan')">
+        <div class="menu-content">
+            <div class="menu-title">Paket Prasmanan Platinum</div>
+            <div class="menu-desc">- Nasi putih
+			- Bistik daging
+			- Ayam Goreng Laos
+			- Mie goreng / Bihung Goreng
+			- Tumis Sayuran
+			- Sambal
+			- Kerupuk
+			- Buah
+			- Teh Panas / Kopi Panas
+			- Sirup Cocopandan / Melon
+			- Air mineral
+
+Ketentuan:
+- Minimal order 20 pack
+- DP minimal 30%
+- Reservasi H-1</div>
+            <div class="menu-footer">
+                <div class="price">Rp100.000</div>
+                            </div>
+        </div>
+    </div>
+	
+	<!-- ================= MENU BARU ================= -->
+
+<!-- Rice Noodles -->
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Nasi Goreng</div>
+        <div class="menu-desc">Rice Noodles special</div>
+        <div class="menu-footer">
+         <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Nasi Goreng Hitam</div>
+        <div class="menu-desc">Rice Noodles special</div>
+        <div class="menu-footer">
+         <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Nasi Goreng Kaca5</div>
+        <div class="menu-desc">Rice Noodles special</div>
+        <div class="menu-footer"><div class="price">Rp30.000</div></div>
+    </div>
+</div>
+
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Nasi Goreng Seafood</div>
+        <div class="menu-desc">Rice Noodles special</div>
+        <div class="menu-footer">
+         <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Nasi Telur Pontianak</div>
+        <div class="menu-desc">Telur :- Setengah Matang
+										- Matang </div>
+        <div class="menu-footer">
+         <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Mie Goreng / Rebus</div>
+        <div class="menu-desc">Rice Noodles special</div>
+        <div class="menu-footer">
+         <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Mie Mblewer</div>
+        <div class="menu-desc">Rice Noodles special</div>
+        <div class="menu-footer">
+         <div class="price">Rp18.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Soto Bathok Kaca5</div>
+        <div class="menu-desc">Rice Noodles special</div>
+        <div class="menu-footer">
+         <div class="price">Rp10.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Kwetiau Goreng</div>
+        <div class="menu-desc">Rice Noodles special</div>
+        <div class="menu-footer">
+         <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan ricenoodles">
+    <img class="menu-img"src="images/1.png"onclick="previewImage(this.src,'Nasi Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Telur Kriwil</div>
+        <div class="menu-desc">Rice Noodles special</div>
+        <div class="menu-footer">
+         <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Poultry Meat -->
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Bakar</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Crispy</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Gajebo</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Geprek</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Geprek Blackpepper</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Geprek Matah</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Goreng</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Bebek Goreng</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp35.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Katsu</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Kecap</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Mayo</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Goreng Laos</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Soup Ayam</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Rica</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Lebonk</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan poultry">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ayam Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ayam Goreng</div>
+        <div class="menu-desc">Poultry Meat pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Gammik -->
+<div class="menu-card makanan gammik">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Gammik Ayam')">
+
+    <div class="menu-content">
+        <div class="menu-title">Gammik Ayam</div>
+        <div class="menu-desc">Menu khas Griyo</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan gammik">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Gammik Bawis')">
+
+    <div class="menu-content">
+        <div class="menu-title">Gammik Bawis</div>
+        <div class="menu-desc">Menu khas Griyo</div>
+        <div class="menu-footer">
+            <div class="price">Rp35.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan gammik">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Gammik Cumi')">
+
+    <div class="menu-content">
+        <div class="menu-title">Gammik Cumi</div>
+        <div class="menu-desc">Menu khas Griyo</div>
+        <div class="menu-footer">
+            <div class="price">Rp40.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan gammik">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Gammik Bawis')">
+
+    <div class="menu-content">
+        <div class="menu-title">Gammik Udang</div>
+        <div class="menu-desc">Menu khas Griyo</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan gammik">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Gammik Bawis')">
+
+    <div class="menu-content">
+        <div class="menu-title">Gammik Telur</div>
+        <div class="menu-desc">Menu khas Griyo</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Beef Belly -->
+<div class="menu-card makanan beefbelly">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Beef Belly Blackpepper')">
+
+    <div class="menu-content">
+        <div class="menu-title">Beef Belly Blackpepper</div>
+        <div class="menu-desc">Beef Belly spesial</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan beefbelly">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Beef Belly Teriyaki')">
+
+    <div class="menu-content">
+        <div class="menu-title">Beef Belly Teriyaki</div>
+        <div class="menu-desc">Beef Belly spesial</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan beefbelly">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Beef Belly Matah')">
+
+    <div class="menu-content">
+        <div class="menu-title">Beef Belly Matah</div>
+        <div class="menu-desc">Beef Belly spesial</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Fish Seafood -->
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Cumi Crispy')">
+
+    <div class="menu-content">
+        <div class="menu-title">Cumi Crispy</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Dori Crispy')">
+
+    <div class="menu-content">
+        <div class="menu-title">Dori Crispy</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Udang Crispy')">
+
+    <div class="menu-content">
+        <div class="menu-title">Udang Crispy</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Udang Mayo')">
+
+    <div class="menu-content">
+        <div class="menu-title">Udang Mayo</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp30.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ikan Gurame Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ikan Gurame Goreng</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp50.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ikan Gurame Asam Manis')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ikan Gurame Asam Manis</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp60.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ikan Lele Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ikan Lele Goreng</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp23.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ikan Mas Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ikan Mas Goreng</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ikan Mas Hotplate')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ikan Mas Hotplate</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp28.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ikan Nila Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ikan Nila Goreng</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp25.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Ikan Nila Hotplate')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ikan Nila Hotplate</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp28.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card makanan seafood">
+    <img class="menu-img"
+         src="images/5.png"
+         onclick="previewImage(this.src,'Seafood Hotplate')">
+
+    <div class="menu-content">
+        <div class="menu-title">Seafood Hotplate</div>
+        <div class="menu-desc">Fish & Seafood pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp50.000</div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= SAYUR ================= -->
+<div class="menu-card sayur tumis">
+<img class="menu-img"src="images/8.png"onclick="previewImage(this.src,'Cah Jamur')">
+    <div class="menu-content">
+        <div class="menu-title">Cah Jamur</div>
+        <div class="menu-desc">Sayur tumis segar</div>
+        <div class="menu-footer">
+            <div class="price">Rp8.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card sayur tumis">
+<img class="menu-img"src="images/8.png"onclick="previewImage(this.src,'Cah Kangkung')">
+    <div class="menu-content">
+        <div class="menu-title">Cah Kangkung</div>
+        <div class="menu-desc">Sayur tumis segar</div>
+        <div class="menu-footer">
+            <div class="price">Rp8.000</div>
+        </div>
+	</div>
+</div>
+	
+<div class="menu-card sayur tumis">
+<img class="menu-img"src="images/8.png"onclick="previewImage(this.src,'Cah Sawi')">
+    <div class="menu-content">
+        <div class="menu-title">Cah Sawi</div>
+        <div class="menu-desc">Sayur tumis segar</div>
+        <div class="menu-footer">
+            <div class="price">Rp8.000</div>
+        </div>
+	</div>
+</div>
+	
+<div class="menu-card sayur tumis">
+<img class="menu-img"src="images/8.png"onclick="previewImage(this.src,'Cah Toge')">
+    <div class="menu-content">
+        <div class="menu-title">Cah Toge</div>
+        <div class="menu-desc">Sayur tumis segar</div>
+        <div class="menu-footer">
+            <div class="price">Rp8.000</div>
+        </div>
+	</div>
+</div>
+	
+<div class="menu-card sayur tumis">
+<img class="menu-img"src="images/8.png"onclick="previewImage(this.src,'Tumis Brokoli')">
+	<div class="menu-content">
+        <div class="menu-title">Tumis Brokoli</div>
+        <div class="menu-desc">Sayur tumis segar</div>
+        <div class="menu-footer">
+            <div class="price">Rp12.000</div>
+        </div>
+	</div>
+</div>
+	
+	<div class="menu-card sayur tumis">
+	 <img class="menu-img"
+         src="images/8.png"
+         onclick="previewImage(this.src,'Tumis Buncis')">
+
+    <div class="menu-content">
+        <div class="menu-title">Tumis Buncis</div>
+        <div class="menu-desc">Sayur tumis segar</div>
+        <div class="menu-footer">
+            <div class="price">Rp8.000</div>
+        </div>
+	</div>
+	</div>
+
+<div class="menu-card sayur tumis">
+	 <img class="menu-img"
+         src="images/8.png"
+         onclick="previewImage(this.src,'Sayur Sop')">
+
+    <div class="menu-content">
+        <div class="menu-title">Sayur Sop</div>
+        <div class="menu-desc">Sayur tumis segar</div>
+        <div class="menu-footer">
+            <div class="price">Rp10.000</div>
+        </div>
+	</div>
+	</div>
+	
+<div class="menu-card sayur tumis">
+<img class="menu-img" src="images/8.png" onclick="previewImage(this.src,'Sayur Asem')">
+<div class="menu-content">
+        <div class="menu-title">Sayur Asem</div>
+        <div class="menu-desc">Sayur tumis segar</div>
+        <div class="menu-footer">
+            <div class="price">Rp10.000</div>
+        </div>
+	</div>
+	</div>
+	
+<!-- EXTRA -->
+    <div class="menu-card extra nasi">
+        <img class="menu-img"
+             src="images/8.png"
+             onclick="previewImage(this.src,'Nasi Putih')">
+        <div class="menu-content">
+            <div class="menu-title">Nasi Putih</div>
+            <div class="menu-desc">Tambahan nasi</div>
+            <div class="menu-footer">
+                <div class="price">Rp5.000</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-card extra nasi">
+        <img class="menu-img"
+             src="images/8.png"
+             onclick="previewImage(this.src,'Tahu Goreng')">
+        <div class="menu-content">
+            <div class="menu-title">Tahu Goreng</div>
+            <div class="menu-desc">Tambahan</div>
+            <div class="menu-footer">
+                <div class="price">Rp5.000</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-card extra nasi">
+        <img class="menu-img"
+             src="images/8.png"
+             onclick="previewImage(this.src,'Telor Goreng')">
+        <div class="menu-content">
+            <div class="menu-title">Telor Goreng</div>
+            <div class="menu-desc">Ceplok / Dadar</div>
+            <div class="menu-footer">
+                <div class="price">Rp5.000</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-card extra nasi">
+        <img class="menu-img"
+             src="images/8.png"
+             onclick="previewImage(this.src,'Tempe Goreng')">
+        <div class="menu-content">
+            <div class="menu-title">Tempe Goreng</div>
+            <div class="menu-desc">Tambahan</div>
+            <div class="menu-footer">
+                <div class="price">Rp5.000</div>
+            </div>
+        </div>
+    </div>
+
+<div class="menu-card extra nasi">
+        <img class="menu-img"
+             src="images/8.png"
+             onclick="previewImage(this.src,'Terong Goreng')">
+        <div class="menu-content">
+            <div class="menu-title">Terong Goreng</div>
+            <div class="menu-desc">Tambahan</div>
+            <div class="menu-footer">
+                <div class="price">Rp5.000</div>
+            </div>
+        </div>
+    </div>
+
+<!-- ================= SNACK ================= -->
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Burger')">
+    <div class="menu-content">
+        <div class="menu-title">Burger</div>
+        <div class="menu-desc">Pilihan : Pedas / Manis</div>
+        <div class="menu-footer">
+            <div class="price">Rp18.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Canai')">
+
+    <div class="menu-content">
+        <div class="menu-title">Canai</div>
+        <div class="menu-desc">Pilihan : Coklat / Keju </div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Choco Banana Rolls')">
+
+    <div class="menu-content">
+        <div class="menu-title">Choco Banana Rolls</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Chicken Pop Fries')">
+
+    <div class="menu-content">
+        <div class="menu-title">Chicken Pop Fries</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Cireng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Cireng</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp12.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Jamur Crispy')">
+
+    <div class="menu-content">
+        <div class="menu-title">Jamur Crispy</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp12.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Jasuke')">
+
+    <div class="menu-content">
+        <div class="menu-title">Jasuke</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp12.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Kentang Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Kentang Goreng</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Kentang Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Mix Platters</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Pempek Bulat')">
+
+    <div class="menu-content">
+        <div class="menu-title">Pempek Bulat</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Pempek Lenggang')">
+
+    <div class="menu-content">
+        <div class="menu-title">Pempek Lenggang</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Pisang Keju')">
+
+    <div class="menu-content">
+        <div class="menu-title">Pisang Keju</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card snack snackmix">
+    <img class="menu-img"
+         src="images/7.png"
+         onclick="previewImage(this.src,'Singkong Goreng')">
+
+    <div class="menu-content">
+        <div class="menu-title">Singkong Goreng</div>
+        <div class="menu-desc">Snack pilihan</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MINUMAN ================= -->
+
+<!-- Oriental -->
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Cumber Frizz')">
+
+    <div class="menu-content">
+        <div class="menu-title">Cumber Frizz</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Orange')">
+
+    <div class="menu-content">
+        <div class="menu-title">Orange</div>
+        <div class="menu-desc">Iced / Hot</div>
+        <div class="menu-footer">
+            <div class="price">Rp6.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Coffee')">
+
+    <div class="menu-content">
+        <div class="menu-title">Coffee</div>
+        <div class="menu-desc">Hot</div>
+        <div class="menu-footer">
+            <div class="price">Rp6.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Coffee Latte')">
+
+    <div class="menu-content">
+        <div class="menu-title">Coffee Latte</div>
+        <div class="menu-desc">Iced / Hot</div>
+        <div class="menu-footer">
+            <div class="price">Rp12.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Vanilla Latte')">
+
+    <div class="menu-content">
+        <div class="menu-title">Vanilla Latte</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Orange')">
+
+    <div class="menu-content">
+        <div class="menu-title">Lemontea</div>
+        <div class="menu-desc">Iced / Hot</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Lychee Tea')">
+
+    <div class="menu-content">
+        <div class="menu-title">Lychee Tea</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Lemongrass Tea')">
+
+    <div class="menu-content">
+        <div class="menu-title">Lemongrass Tea</div>
+        <div class="menu-desc">Iced / Hot</div>
+        <div class="menu-footer">
+            <div class="price">Rp10.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Ginger')">
+
+    <div class="menu-content">
+        <div class="menu-title">Ginger</div>
+        <div class="menu-desc">Hot</div>
+        <div class="menu-footer">
+            <div class="price">Rp8.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Milky Ginger')">
+
+    <div class="menu-content">
+        <div class="menu-title">Milky Ginger</div>
+        <div class="menu-desc">Hot</div>
+        <div class="menu-footer">
+            <div class="price">Rp12.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Tea')">
+    <div class="menu-content">
+        <div class="menu-title">Tea</div>
+        <div class="menu-desc">Iced / Hot</div>
+        <div class="menu-footer">
+            <div class="price">Rp5.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Water')">
+
+    <div class="menu-content">
+        <div class="menu-title">Water</div>
+        <div class="menu-desc"></div>
+        <div class="menu-footer">
+            <div class="price">Rp5.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Strawberry Fusion')">
+
+    <div class="menu-content">
+        <div class="menu-title">Strawberry Fusion</div>
+        <div class="menu-desc">Perpaduan strawberry, susu uht yang menyegarkan</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Lime Iced')">
+
+    <div class="menu-content">
+        <div class="menu-title">Orange</div>
+        <div class="menu-desc">Perpaduan jeruk nipis dan soda</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Lychee Mojito')">
+
+    <div class="menu-content">
+        <div class="menu-title">Lychee Mojito</div>
+        <div class="menu-desc">Perpaduan jeruk nipis, sirup leci, dan soda</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Yakult Mojito')">
+
+    <div class="menu-content">
+        <div class="menu-title">Yakult Mojito</div>
+        <div class="menu-desc">Perpaduan yakult, jeruk nipis dan soda</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Strawberry Matcha Latte')">
+
+    <div class="menu-content">
+        <div class="menu-title">Strawberry Matcha Latte</div>
+        <div class="menu-desc">Perpaduan strawberry, susu uht, dan matcha</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman oriental">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Milky Marie Iced')">
+
+    <div class="menu-content">
+        <div class="menu-title">Milky Marie Iced</div>
+        <div class="menu-desc">Perpaduan biscuit Marie dan susu uht</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<!-- Origin -->
+<div class="menu-card minuman origin">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Chocolate')">
+
+    <div class="menu-content">
+        <div class="menu-title">Chocolate</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman origin">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Cookies')">
+
+    <div class="menu-content">
+        <div class="menu-title">Cookies</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman origin">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Matcha')">
+
+    <div class="menu-content">
+        <div class="menu-title">Matcha</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman origin">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Red Velvet')">
+
+    <div class="menu-content">
+        <div class="menu-title">Red Velvet</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman origin">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Taro')">
+
+    <div class="menu-content">
+        <div class="menu-title">Taro</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman origin">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Thai Tea')">
+
+    <div class="menu-content">
+        <div class="menu-title">Thai Tea</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<!-- Float -->
+<div class="menu-card minuman float">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Cookies Float')">
+
+    <div class="menu-content">
+        <div class="menu-title">Cookies Float</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+	
+</div>
+<div class="menu-card minuman float">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Chocolate Float')">
+
+    <div class="menu-content">
+        <div class="menu-title">Chocolate Float</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman float">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Matcha Float')">
+
+    <div class="menu-content">
+        <div class="menu-title">Matcha Float</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman float">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Red Velvet Float')">
+
+    <div class="menu-content">
+        <div class="menu-title">Red Velvet Float</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman float">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Taro Float')">
+
+    <div class="menu-content">
+        <div class="menu-title">Taro Float</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman float">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Vanilla Float')">
+
+    <div class="menu-content">
+        <div class="menu-title">Vanilla Float</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Yakult -->
+<div class="menu-card minuman yakult">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Lychee Yakult')">
+    <div class="menu-content">
+        <div class="menu-title">Lychee Yakult</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman yakult">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Mango Yakult')">
+    <div class="menu-content">
+        <div class="menu-title">Mango Yakult</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman yakult">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Melon Yakult')">
+    <div class="menu-content">
+        <div class="menu-title">Melon Yakult</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman yakult">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Orange Yakult')">
+    <div class="menu-content">
+        <div class="menu-title">Orange Yakult</div>
+        <div class="menu-desc">Iced</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Squash -->
+<div class="menu-card minuman squash">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Mango Squash')">
+
+    <div class="menu-content">
+        <div class="menu-title">Mango Squash</div>
+        <div class="menu-desc">Minuman squash</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+<div class="menu-card minuman squash">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Melon Squash')">
+
+    <div class="menu-content">
+        <div class="menu-title">Melon Squash</div>
+        <div class="menu-desc">Minuman squash</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman squash">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Orange Squash')">
+    <div class="menu-content">
+        <div class="menu-title">Orange Squash</div>
+        <div class="menu-desc">Minuman squash</div>
+        <div class="menu-footer">
+            <div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<!-- Juice -->
+<div class="menu-card minuman juice">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Avocado Juice')">
+
+    <div class="menu-content">
+        <div class="menu-title">Avocado Juice</div>
+        <div class="menu-desc"></div>
+        <div class="menu-footer">
+		<div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman juice">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Orange Juice')">
+
+    <div class="menu-content">
+        <div class="menu-title">Orange Juice</div>
+        <div class="menu-desc"></div>
+        <div class="menu-footer">
+		<div class="price">Rp15.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman juice">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Strawberry Juice')">
+
+    <div class="menu-content">
+        <div class="menu-title">Strawberry Juice</div>
+        <div class="menu-desc"></div>
+        <div class="menu-footer">
+		<div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman juice">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Mango Juice')">
+
+    <div class="menu-content">
+        <div class="menu-title">Mango Juice</div>
+        <div class="menu-desc"></div>
+        <div class="menu-footer">
+		<div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman juice">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Melon Juice')">
+
+    <div class="menu-content">
+        <div class="menu-title">Melon Juice</div>
+        <div class="menu-desc"></div>
+        <div class="menu-footer">
+		<div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman juice">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Naga Juice')">
+
+    <div class="menu-content">
+        <div class="menu-title">Naga Juice</div>
+        <div class="menu-desc"></div>
+        <div class="menu-footer">
+		<div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman juice">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Sirsak Juice')">
+
+    <div class="menu-content">
+        <div class="menu-title">Sirsak Juice</div>
+        <div class="menu-desc"></div>
+        <div class="menu-footer">
+		<div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-card minuman juice">
+    <img class="menu-img"
+         src="images/10.png"
+         onclick="previewImage(this.src,'Nangka Juice')">
+
+    <div class="menu-content">
+        <div class="menu-title">Nangka Juice</div>
+        <div class="menu-desc"></div>
+        <div class="menu-footer">
+		<div class="price">Rp20.000</div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+let mainCat='all';
+let subCat='all';
+
+const subMenu=document.getElementById('subMenu');
+const subMakanan=document.getElementById('subMakanan');
+const subMinuman=document.getElementById('subMinuman');
+
+function resetSubActive(container){
+    container.querySelectorAll('.cat-btn').forEach((b,i)=>{
+        b.classList.toggle('active', i===0);
+    });
+}
+
+function previewImage(src,title){
+    document.getElementById('imgModal').style.display='flex';
+    document.getElementById('modalImg').src=src;
+    document.getElementById('modalTitle').innerText=title;
+}
+
+function closePreview(){
+    document.getElementById('imgModal').style.display='none';
+}
+
+function setMain(cat,btn){
+    mainCat=cat;
+    document.querySelectorAll('.category .cat-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+
+    subCat='all';
+
+    if(cat==='makanan'){
+        subMenu.style.display='flex';
+        subMakanan.style.display='flex';
+        subMinuman.style.display='none';
+        resetSubActive(subMakanan);
+    }
+    else if(cat==='minuman'){
+        subMenu.style.display='flex';
+        subMakanan.style.display='none';
+        subMinuman.style.display='flex';
+        resetSubActive(subMinuman);
+    }
+    else{
+        subMenu.style.display='none';
+    }
+
+    filterMenu();
+}
+
+function setSub(cat,btn){
+    subCat=cat;
+    document.querySelectorAll('.subcategory .cat-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    filterMenu();
+}
+
+function filterMenu(){
+    document.querySelectorAll('.menu-card').forEach(card=>{
+        let showMain = (mainCat==='all' || card.classList.contains(mainCat));
+        let showSub = (subCat==='all' || card.classList.contains(subCat));
+        card.style.display = (showMain && showSub) ? 'block' : 'none';
+    });
+}
+
+function orderMenu(nama){
+    alert('Pesan: ' + nama);
+}
+</script>
+
+<!-- MODAL PREVIEW -->
+<div id="imgModal" class="img-modal" onclick="closePreview()">
+    <span class="close-modal">✕</span>
+    <img id="modalImg">
+    <div id="modalTitle"></div>
+</div>
+
+<script>
+function previewImage(src, title){
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+
+    modal.style.display = "flex";
+    modalImg.src = src;
+    modalTitle.textContent = title;
+
+    // ❌ HAPUS pengunci scroll supaya aman
+    // document.body.style.overflow = "hidden";
+}
+
+function closeImage(){
+    document.getElementById("imgModal").style.display = "none";
+
+    // ❌ tidak perlu unlock scroll lagi
+    // document.body.style.overflow = "auto";
+}
+</script>
+<script>
+/* ================= RESET KE AWAL ================= */
+function resetMenuView(){
+
+    // tampilkan semua kartu
+    document.querySelectorAll('.menu-card').forEach(card=>{
+        card.style.display = 'flex';
+    });
+
+    // reset tombol kategori
+    document.querySelectorAll('.cat-btn').forEach(btn=>{
+        btn.classList.remove('active');
+    });
+
+    // aktifkan tombol "Semua" paling atas
+    const firstAllBtn = document.querySelector('.category .cat-btn');
+    if(firstAllBtn) firstAllBtn.classList.add('active');
+
+    // sembunyikan sub menu
+    document.getElementById('subMenu').style.display = 'none';
+}
+
+
+/* ================= PREVIEW IMAGE ================= */
+function previewImage(src,title){
+
+    // 🔥 reset dulu tampilan menu
+    resetMenuView();
+
+    // 👉 kalau kamu punya popup preview, taruh di sini
+    // contoh sederhana:
+    const img = new Image();
+    img.src = src;
+
+    // OPTIONAL: alert nama menu
+    // alert(title);
+}
+</script>
+
+<!-- IMAGE ZOOM MODAL -->
+<div class="img-modal" id="imgModal" onclick="closeImage()">
+    <span class="close-modal">&times;</span>
+    <img id="modalImg">
+    <div id="modalTitle"></div>
+</div>
+
+<script>
+function previewImage(src, title){
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+
+    modal.style.display = "flex";
+    modalImg.src = src;
+    modalTitle.textContent = title;
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeImage(){
+    document.getElementById("imgModal").style.display = "none";
+    document.body.style.overflow = "auto";
+}
+</script>
+
+<script>
+// ================= AUTO START =================
+window.addEventListener("DOMContentLoaded", function(){
+
+    // aktifkan tombol Makanan (jika masih ada)
+    const firstMainBtn = document.querySelector('.cat-btn');
+    if(firstMainBtn){
+        firstMainBtn.classList.add('active');
+    }
+
+    // tampilkan kategori makanan
+    setMain('makanan');
+
+    // tampilkan sub pertama (ayam)
+    const firstSubBtn = document.querySelector('#subMakanan .cat-btn');
+    if(firstSubBtn){
+        firstSubBtn.classList.add('active');
+        setSub('ayam');
+    }
+
+});
+</script>
+</body>
+</html>
